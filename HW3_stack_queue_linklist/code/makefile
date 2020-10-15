@@ -1,8 +1,13 @@
-food2: food2.c
-	gcc -std=c11 -o food2 food2.c
+all: hw3_1 hw3_2
+
+hw3_2: hw3_2.c
+	gcc -std=c11 -o hw3_2 hw3_2.c
+
+hw3_1: hw3_1.c
+	gcc -std=c11 -o hw3_1 hw3_1.c
 
 clean:
-	rm food2 -v
+	rm hw3_1 hw3_1 *.o *.d -v
 
 cleanw:
-	rm food2.exe -v
+	rm *.exe *.o *.d -v

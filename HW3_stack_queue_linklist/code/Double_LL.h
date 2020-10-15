@@ -30,15 +30,14 @@ LinkList *create_ll()
 
 void printLL(LinkList *lp, int mode) // mode=0: ordered, mode=1: reverse
 {
-    // Invalid Link List
     if (!lp)
     {
         fprintf(stderr, "printLL(): invalid Link List\n");
-        return;
+        exit(EXIT_FAILURE);
     }
     if (!lp->head)
     {
-        fprintf(stderr, "printLL(): empty Link List\n");
+        fprintf(stdout, "printLL(): empty Link List\n");
         return;
     }
     if (mode == 0)
@@ -91,7 +90,7 @@ void push_node(LinkList *lp, Node *np)
         np->prev = lp->tail;
         lp->tail = np;
     }
-#ifdef DEBUG
+#ifdef DEBUG_DOUBLE_LL_H
     printf("push(%d):\n", np->val);
     printLL(lp, 0);
 #endif
@@ -120,13 +119,13 @@ void enqueue_node(LinkList *lp, Node *np)
         np->next = lp->head;
         lp->head = np;
     }
-#ifdef DEBUG
+#ifdef DEBUG_DOUBLE_LL_H
     printf("enqueue(%d):\n", np->val);
     printLL(lp, 0);
 #endif
 }
 
-void pop_node(LinkList *lp) // Remove the last node in link list
+int pop_node(LinkList *lp) // Remove the last node in link list
 {
     // Check the input is valid
     if (!lp)
@@ -138,26 +137,30 @@ void pop_node(LinkList *lp) // Remove the last node in link list
     if (!lp->head)
     {
         fprintf(stderr, "pop_node(): Link List is empty.");
-        return;
+        exit(EXIT_FAILURE);
     }
+    int val = lp->tail->val;
     Node *new_tail = lp->tail->prev;
     // When only one node left: new_tail == NULL
     if (!new_tail)
     {
+#ifdef DEBUG_DOUBLE_LL_H
         puts("pop_node(): One node left.");
+#endif
         lp->head = NULL;
     }
     else
         new_tail->next = NULL;
     free(lp->tail);
     lp->tail = new_tail;
-#ifdef DEBUG
-    puts("pop():");
+#ifdef DEBUG_DOUBLE_LL_H
+    printf("pop(): %d\n", val);
     printLL(lp, 0);
 #endif
+    return val;
 }
 
-void dequeue_node(LinkList *lp) // Remove the last node in link list
+int dequeue_node(LinkList *lp) // Remove the last node in link list
 {
     // Check the input is valid
     if (!lp)
@@ -168,24 +171,28 @@ void dequeue_node(LinkList *lp) // Remove the last node in link list
     // When ll is empty
     if (!lp->head)
     {
-        fprintf(stderr, "pop_node(): Link List is empty.");
-        return;
+        fprintf(stderr, "dequeue_node(): Link List is empty.");
+        exit(EXIT_FAILURE);
     }
-    Node *new_tail = lp->tail->prev;
-    // When only one node left: new_tail == NULL
-    if (!new_tail)
+    int val = lp->head->val;
+    Node *new_head = lp->head->next;
+    // When only one node left: new_head == NULL
+    if (!new_head)
     {
-        puts("pop_node(): One node left.");
+#ifdef DEBUG_DOUBLE_LL_H
+        puts("dequeue_node(): One node left.");
+#endif
         lp->head = NULL;
     }
     else
-        new_tail->next = NULL;
-    free(lp->tail);
-    lp->tail = new_tail;
-#ifdef DEBUG
-    puts("pop():");
+        new_head->prev = NULL;
+    free(lp->head);
+    lp->head = new_head;
+#ifdef DEBUG_DOUBLE_LL_H
+    printf("dequeue(): %d\n", val);
     printLL(lp, 0);
 #endif
+    return val;
 }
 
 #endif // DOUBLE_LL_H
