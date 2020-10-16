@@ -48,16 +48,9 @@ int main()
 #ifdef DEBUG
             printf("%s %s\n", instr[0], instr[1]);
             printALL(plate, line_a, line_b);
-            // getchar();
 #endif
         }
     }
-    push_node(plate, create_node(0));
-    push_node(plate, create_node(0));
-    push_node(plate, create_node(0));
-    push_node(plate, create_node(0));
-    push_node(plate, create_node(0));
-    push_node(plate, create_node(0));
     // Deallocate heap
     free_LL(plate);
     free_LL(line_a);
