@@ -15,8 +15,10 @@ int main()
     LinkList *line_b = create_ll();
     while (!feof(inFile))
     {
-        fscanf(inFile, "%s", instr[0]);   // Read instruction
-        if (strcmp("POP", instr[0]) != 0) // POP do nothing
+        fscanf(inFile, "%s", instr[0]); // Read instruction
+        if (strcmp("^Z", instr[0]) == 0)
+            break;
+        else if (strcmp("POP", instr[0]) != 0) // POP do nothing
         {
             fscanf(inFile, "%s\n", instr[1]);
             if (instr[0][0] == 'P') // PUSH
@@ -33,22 +35,33 @@ int main()
             else if (instr[0][0] == 'D') // DEQUEUE
             {
                 if (instr[1][0] == 'A')
-                    fprintf(stdout, "%d\n", dequeue_node(line_a));
+                    fprintf(stdout, "%d\n", pop_node(line_a));
                 else
-                    fprintf(stdout, "%d\n", dequeue_node(line_b));
+                    fprintf(stdout, "%d\n", pop_node(line_b));
             }
             else
             {
+                fprintf(stderr, "%s %s", instr[0], instr[1]);
                 fprintf(stderr, "Wrong instruction!\n");
                 exit(EXIT_FAILURE);
             }
 #ifdef DEBUG
             printf("%s %s\n", instr[0], instr[1]);
-            // printALL(plate, line_a, line_b);
+            printALL(plate, line_a, line_b);
             // getchar();
 #endif
         }
     }
+    push_node(plate, create_node(0));
+    push_node(plate, create_node(0));
+    push_node(plate, create_node(0));
+    push_node(plate, create_node(0));
+    push_node(plate, create_node(0));
+    push_node(plate, create_node(0));
+    // Deallocate heap
+    free_LL(plate);
+    free_LL(line_a);
+    free_LL(line_b);
     free(plate);
     free(line_a);
     free(line_b);

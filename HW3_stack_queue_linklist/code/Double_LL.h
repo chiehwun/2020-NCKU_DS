@@ -1,5 +1,6 @@
 #ifndef DOUBLE_LL_H
 #define DOUBLE_LL_H
+// #define DEBUG_DOUBLE_LL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -160,7 +161,7 @@ int pop_node(LinkList *lp) // Remove the last node in link list
     return val;
 }
 
-int dequeue_node(LinkList *lp) // Remove the last node in link list
+int pop_first_node(LinkList *lp) // Remove the first node in link list
 {
     // Check the input is valid
     if (!lp)
@@ -193,6 +194,22 @@ int dequeue_node(LinkList *lp) // Remove the last node in link list
     printLL(lp, 0);
 #endif
     return val;
+}
+
+void free_LL(LinkList *lp) // free all nodes in link list
+{
+    if (!lp)
+    {
+        fprintf(stderr, "printLL(): invalid Link List\n");
+        return;
+    }
+    int i = 0;
+    while (lp->head)
+    {
+
+        pop_node(lp);
+    }
+    fprintf(stderr, "delete %d node%c.\n", i, i <= 1 ? '\0' : 's');
 }
 
 #endif // DOUBLE_LL_H
