@@ -4,11 +4,19 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+// Elements is link list
+typedef struct Node_tr
+{
+    struct Node_tr *left;
+    struct Node_tr *right;
+    int key;
+} Node_tr;
+
 typedef struct Node
 {
     struct Node *next;
     struct Node *prev;
-    int val;
+    Node_tr *np_tr;
 } Node;
 
 typedef struct LinkList
@@ -32,14 +40,14 @@ void printLL(LinkList *lp, int order) // order=0: sequential, order=1: reverse
     if (order == 0)
     {
         for (Node *np = lp->head; np->next; np = np->next)
-            printf("%3d -> ", np->val);
-        printf("%3d\n", lp->tail->val);
+            printf("%3d -> ", np->np_tr->key);
+        printf("%3d\n", lp->tail->np_tr->key);
     }
     else
     {
         for (Node *np = lp->tail; np->prev; np = np->prev)
-            printf("%3d <- ", np->val);
-        printf("%3d\n", lp->head->val);
+            printf("%3d <- ", np->np_tr->key);
+        printf("%3d\n", lp->head->np_tr->key);
     }
 }
 
@@ -54,7 +62,7 @@ LinkList *create_ll()
     return lp;
 }
 
-Node *create_node(int val)
+Node *create_node(Node_tr *np_tr)
 {
     Node *np = (Node *)malloc(sizeof(Node));
     if (!np) // p == NULL
@@ -62,7 +70,7 @@ Node *create_node(int val)
         fprintf(stderr, "create_node(): Out of memory!\n");
         exit(EXIT_FAILURE);
     }
-    np->val = val;
+    np->np_tr = np_tr;
     np->next = np->prev = NULL;
     return np;
 }
@@ -125,7 +133,7 @@ void push_front_node(LinkList *lp, Node *np) // Inserts the node at the front of
 #endif
 }
 
-int pop_node(LinkList *lp) // Remove the last node in link list
+Node_tr *pop_node(LinkList *lp) // Remove the last node in link list
 {
     // Check the input is valid
     if (!lp)
@@ -139,7 +147,7 @@ int pop_node(LinkList *lp) // Remove the last node in link list
         fprintf(stderr, "pop_node(): Link List is empty.");
         exit(EXIT_FAILURE);
     }
-    int val = lp->tail->val;
+    Node_tr *np_tr = lp->tail->np_tr;
     Node *new_tail = lp->tail->prev;
     // When only one node left: new_tail == NULL
     if (!new_tail)
@@ -149,13 +157,13 @@ int pop_node(LinkList *lp) // Remove the last node in link list
     free(lp->tail);
     lp->tail = new_tail;
 #ifdef DEBUG_DOUBLE_LL_H
-    printf("pop(): %d\n", val);
+    printf("pop(): %d\n", np_tr->key);
     printLL(lp, 0);
 #endif
-    return val;
+    return np_tr;
 }
 
-int pop_front_node(LinkList *lp) // Remove the first node in link list
+Node_tr *pop_front_node(LinkList *lp) // Remove the first node in link list
 {
     // Check the input is valid
     if (!lp)
@@ -169,7 +177,7 @@ int pop_front_node(LinkList *lp) // Remove the first node in link list
         fprintf(stderr, "dequeue_node(): Link List is empty.");
         exit(EXIT_FAILURE);
     }
-    int val = lp->head->val;
+    Node_tr *np_tr = lp->head->np_tr;
     Node *new_head = lp->head->next;
     // When only one node left: new_head == NULL
     if (!new_head)
@@ -179,10 +187,11 @@ int pop_front_node(LinkList *lp) // Remove the first node in link list
     free(lp->head);
     lp->head = new_head;
 #ifdef DEBUG_DOUBLE_LL_H
-    printf("dequeue(): %d\n", val);
-    printLL(lp, 0);
+    printf("dequeue(): %d\n", np_tr->val);
+    key
+        printLL(lp, 0);
 #endif
-    return val;
+    return np_tr;
 }
 
 void free_LL(LinkList *lp) // Free all nodes in the link list

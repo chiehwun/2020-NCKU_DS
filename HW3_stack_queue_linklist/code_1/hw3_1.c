@@ -28,9 +28,9 @@ int main()
             else if (instr[0][0] == 'E') // ENQUEUE
             {
                 if (instr[1][0] == 'A')
-                    enqueue_node(line_a, create_node(pop_node(plate)));
+                    push_front_node(line_a, create_node(pop_node(plate)));
                 else
-                    enqueue_node(line_b, create_node(pop_node(plate)));
+                    push_front_node(line_b, create_node(pop_node(plate)));
             }
             else if (instr[0][0] == 'D') // DEQUEUE
             {

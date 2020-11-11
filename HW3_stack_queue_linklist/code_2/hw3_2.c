@@ -19,12 +19,12 @@ int main()
         print_card(cards, 0);
         if (cards->head->val == next_code)
         {
-            pop_first_node(cards);
+            pop_front_node(cards);
             --next_code;
         }
         else
         {
-            int temp = pop_first_node(cards);
+            int temp = pop_front_node(cards);
             push_node(cards, create_node(temp));
         }
     }
