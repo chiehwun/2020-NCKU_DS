@@ -1,0 +1,1 @@
+gcc -std=c11 -o hw5 hw5.c && ./hw5 < input0_windows.txt > output.txt

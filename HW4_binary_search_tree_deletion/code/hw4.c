@@ -12,7 +12,7 @@ int main()
     do
     {
         scanf("%d", &input);
-        if(i == 0)
+        if (i == 0)
             root = create_node_tr(input);
         else
             append_search_tree(root, input);
@@ -27,7 +27,6 @@ int main()
     print_tree(root);
     return 0;
 }
-
 
 FILE *openFile(const char *fileName, const char *mode)
 {
@@ -46,10 +45,10 @@ void gen(int data_num)
     FILE *outFile = openFile("input.txt", "w");
     int arr[100], arr_out[100];
 
-    for(int i=0; i < 100; ++i)
+    for (int i = 0; i < 100; ++i)
         arr_out[i] = arr[i] = i;
 
-    for(int i=0; i < 100; ++i)
+    for (int i = 0; i < 100; ++i)
     {
         int a = rand() % 100;
         int b = rand() % 100;
@@ -63,17 +62,17 @@ void gen(int data_num)
         arr_out[d] = temp;
     }
     char c[2] = "";
-    for(int i=0; i < 100; ++i)
+    for (int i = 0; i < 100; ++i)
     {
         fprintf(outFile, "%s%d", c, arr[i]);
         c[0] = ' ';
     }
     c[0] = '\n';
-    for(int i=0; i < 100; ++i)
+    for (int i = 0; i < 100; ++i)
     {
         fprintf(outFile, "%s%d", c, arr_out[i]);
         c[0] = ' ';
     }
-    
+
     fclose(outFile);
 }
