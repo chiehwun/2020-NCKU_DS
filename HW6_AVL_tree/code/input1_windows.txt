@@ -1,0 +1,28 @@
+D
+Bob 0900000000
+Alice 0900000001
+Paul 0900000002
+David 0900000003
+Ruby 0900000004
+Charlie 0900000005
+S
+Paul
+Amy
+Ruby
+D
+Adam 090121321
+D
+Adverse 090121321
+S
+Paul
+Adverse
+Adam
+D
+ABC 123
+CDE 234
+S
+ABC
+CDE
+S
+FFF
+E
